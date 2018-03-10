@@ -12,7 +12,7 @@ Put different categories of pictures under different folders.Specify categories 
 	all.at(1).first = 0;
 	all.at(1).second = "E:\\dataset\\TrainingImages\\NFACES";
 ```
-And call genBinaryDataset method in BinaryDatasetWriter generate binary dataset:
+And call genBinaryDataset method in BinaryDatasetWriter generate binary dataset(dataset will be random shuffle before generate binary file):
 ```
 	BinaryDatasetWriter bdw;
 	bdw.genBinaryDataset(all);
