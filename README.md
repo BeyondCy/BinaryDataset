@@ -18,7 +18,7 @@ And call genBinaryDataset method in BinaryDatasetWriter generate binary dataset:
 	bdw.genBinaryDataset(all);
 ```
 
-#Usage--Read from
+# Usage--Read from
 Call BinaryDatasetReader::readBina method to get a std::shared_ptr<std::vector<std::pair<int,std::vector<uint8_t>>>> which contains labels and images.
 parameters is : a path of binary dataset file,image widht,image height,image channel.
 ```
