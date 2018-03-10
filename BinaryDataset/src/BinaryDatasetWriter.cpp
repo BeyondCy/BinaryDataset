@@ -114,3 +114,49 @@ std::vector<std::string> BinaryDatasetWriter::getFileLists( std::string file_fol
 	}
 	return flist;
 }
+
+std::shared_ptr<std::vector<std::pair<int, std::string>>> BinaryDatasetWriter::shuffle_data(std::vector<std::pair<int, std::string>>& labelsAndImages)
+{
+	std::vector<size_t> indexArray;
+	for (size_t i = 0; i < labelsAndImages.size();i++)
+	{
+		indexArray.push_back(i);
+	}
+	std::random_shuffle(indexArray.begin(), indexArray.end());
+	auto shuffleLabelsAndImages = std::make_shared<std::vector<std::pair<int, std::string>>>();
+	for (size_t i = 0; i < labelsAndImages.size(); i++)
+	{
+		const size_t dstIndex = i;
+		const size_t srcIndex = indexArray[i];
+		std::pair<int, std::string> tmp;
+		std::pair<int, std::string> src = labelsAndImages[srcIndex];
+		tmp.first = src.first;
+		tmp.second = src.second;
+		shuffleLabelsAndImages.get()->push_back(tmp);
+	}
+	return shuffleLabelsAndImages;
+}
+
+void BinaryDatasetWriter::genBinaryDataset(std::vector<std::pair<int, std::string>>& all)
+{
+	auto labelsAndImages = std::make_shared<std::vector<std::pair<int, std::string>>>();
+
+	for each (auto pair in all)
+	{
+		std::vector<std::string> images = getFileLists(pair.second); // load files name
+		std::vector<int> labels(images.size(), pair.first);  // generate lables
+		for (int i = 0;i < images.size();i++)
+		{
+			std::pair<int, std::string> tmpPair;
+			tmpPair.first = labels[i];
+			tmpPair.second = images[i];
+			labelsAndImages.get()->push_back(tmpPair);
+		}
+	}
+
+	auto shuffleLabelsAndImages = shuffle_data(*labelsAndImages.get());
+
+	std::string binfile = "E:\\dataset\\face_detection.bin";
+	images2BinaryFile(*shuffleLabelsAndImages.get(), binfile);
+	std::cout << "write " << shuffleLabelsAndImages.get()->size() << " images to " << binfile << std::endl;
+}

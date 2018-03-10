@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <Windows.h>
+#include <memory>
 
 #include <opencv2/opencv.hpp>
 
@@ -29,8 +30,9 @@ public:
 	
 	void mat2Binary( std::string& image_file, int label, FILE*& fp );
 
+	static std::shared_ptr<std::vector<std::pair<int, std::string>>> shuffle_data(std::vector<std::pair<int, std::string>>& labelsAndImages);
 
-//	cv::Mat imageReshape( cv::Mat& input );
+	void genBinaryDataset(std::vector<std::pair<int, std::string>>& all);
 
 	std::string getFileName( std::string & filename );
 
