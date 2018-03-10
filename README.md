@@ -4,8 +4,7 @@ write labels and images to a binary file
 label image label image ......
 # Usage--Write to(The face detection dataset example offered.)
 
-Put different categories of pictures under different folders
-Specify categories and folders in your code,Like this:
+Put different categories of pictures under different folders.Specify categories and folders in your code,Like this:
 ```
 	std::vector<std::pair<int, std::string>> all(2);
 	all.at(0).first = 1;
